@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: ictir2016.aux
+The style file: abbrv.bst
+Database file #1: sigproc.bib
+A bad cross reference---entry "DBLP:conf/ecir/HamidHT16"
+refers to entry "DBLP:conf/ecir/2016", which doesn't exist
+Warning--I didn't find a database entry for "DBLP:conf/ecir/2016"
+Warning--empty booktitle in Lin04rouge:a
+You've used 8 entries,
+            2118 wiz_defined-function locations,
+            558 strings with 5898 characters,
+and the built_in function-call counts, 3410 in all, are:
+= -- 346
+> -- 133
+< -- 6
++ -- 52
+- -- 44
+* -- 205
+:= -- 508
+add.period$ -- 27
+call.type$ -- 8
+change.case$ -- 46
+chr.to.int$ -- 0
+cite$ -- 9
+duplicate$ -- 161
+empty$ -- 289
+format.name$ -- 44
+if$ -- 775
+int.to.chr$ -- 0
+int.to.str$ -- 8
+missing$ -- 8
+newline$ -- 43
+num.names$ -- 16
+pop$ -- 64
+preamble$ -- 1
+purify$ -- 38
+quote$ -- 0
+skip$ -- 128
+stack$ -- 0
+substring$ -- 212
+swap$ -- 62
+text.length$ -- 6
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 32
+warning$ -- 1
+while$ -- 33
+width$ -- 9
+write$ -- 96
+(There was 1 error message)

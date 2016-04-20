@@ -1,0 +1,178 @@
+\documentclass{sig-alternate-05-2015}
+\usepackage{enumitem}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{color, colortbl}
+\usepackage{floatrow}
+\usepackage{amssymb}
+
+\begin{document}
+
+\title{A ``Diamond-Standard'' for Evaluating Extractive Summaries and Keyphrases using Abstractive Reference(s)}
+\maketitle
+\begin{abstract}
+Automatic Summarization and Keyphrase Extraction are two widely used areas in Natural Language Processing and Information Retrieval. A reliable dataset is extremely helpful to the systems performing these tasks. To develop ``gold-standards'' manually on a large scale dataset is time-consuming and expensive, as well as subjective - differences between summaries (or keyphrases) written by different people can be significant. 
+
+\par Our contribution, in this work, is two-fold: firstly, we provide a dataset with a highly trustable reference set for summaries and keywords, and secondly, we provide an evaluation mechanism for systems that are mostly extractive whereas the references are by nature abstractive.
+
+\par In case of scientific articles, author assigned abstracts and key-phrases can provide a high quality reference for summarization and key-phrase extraction tasks. We call author generated summary (i.e., abstract) and key-phrases as our \emph{``diamond standard''}. We collect a set of scientific articles, along with author assigned abstracts and keywords, and provide the major sections of the article (excluding abstract, title, and reference list) as a dataset. In order to test the usability of the dataset and the diamond-standard, we use TextRank as a candidate system. As author provided samples can be abstractive by nature, and can vary over length, we compute a relativized score using $i\hbox{-}measure$ between the TextRank generated output and the diamond-standard. Systems using our dataset can use the relativized scale (a variant of $i\hbox{-}measure$) to evaluate their performances.
+\end{abstract}
+
+%\keywords{extractive approach, diamond standard, gold standard, scientific article, author, summary, keyphrase}
+\section{Introduction}
+Several efforts are going on to create reliably larger datasets for keyphrase extraction and summarization tasks. The Document Understanding Conference (DUC) and the Text Analysis Conference (TAC) are two series of evaluation workshops organized to encourage research in Natural Language Processing and related applications, by providing a large test collection, common evaluation procedures, and a forum for organizations to share their results. TAC comprises sets of tasks known as ``tracks,'' each of which focuses on a particular subproblem of NLP. TAC tracks focus on end-user tasks, but also include component evaluations situated within the context of end-user tasks. The DUC provides the de-facto standard for \emph{unstructured} text data sets which the NLP community uses for evaluating summarization systems. The TIPSTER Text Summarization Evaluation Conference (SUMMAC) published a corpus of 183 documents from the Computation and Language collection.  The ACL Anthology Network (AAN) is a manually curated networked database of citations, collaborations, and summaries in the field of Computational Linguistics. %Authors also presented a number of statistics about the network including the most cited authors, the most central collaborators, as well as network statistics about the paper citation, author citation, and author collaboration networks. 
+A series of workshops on text summarization (WAS 2000-2002), special sessions in ACL, CoLING, SIGIR, and government sponsored evaluation efforts in United States (DUC 2001-DUC2007) have advanced the technology and produced a couple of experimental online systems~\cite{H01-1056}.  However there are no common, convenient, and repeatable evaluation methods that can be easily applied to support system development and comparison among different summarization techniques~\cite{Lin:2003:AES:1073445.1073465}.\\ 
+\par Keyphrases for a document concisely describe the document using a small set of phrases (i.e., sequences of contiguous words in a document). Given today's very large collections of documents, these keyphrases are extremely important not only for summarizing a document, but also for the search and retrieval of relevant information. However, keyphrases are not always available directly. Instead, they need to be gleaned from the details in documents. We have found several efforts to accumulate dataset for evaluating keyphrase extraction tasks. Out of several standard ones,~\cite{Nguyen:2007} is closely related to us. The dataset contains around 200 scientific articles with author assigned and reader assigned keyphrases.\\ 
+\par We, in compared to the existing databases, would like to argue that an author is the most suitable person to summarize the article. For example, if a reader's expertise does not fit the domain of the article, the reader-produced summary/keyphrases might not be the best ones to compare with. It is very time consuming and expensive to produce human annotated reference set for a large scale database as well. Hence, we extract author written abstracts and keyphrases to provide a standard reference set, named as \emph{diamond standard}. \\
+\par Human annotated references are mostly abstractive; whereas system (program) produced ones are extractive. The references and the generated ones might differ due to length as well. Hence, we should move our evaluation techniques from traditional (absolute scaling) methods (precision, recall, f-measure) to a relativized approach, e.g.,~\cite{DBLP:conf/ecir/HamidHT16}. In order to show the usage of our dataset we have used a well-known unsupervised approach (TextRank)~\cite{Mihalcea04TextRank} to produce some candidate output, and we will be providing its' performance statistics using both, the traditional and the relativized scale.
+%In the following sections we will be discussing on the process of collecting the dataset, cleaning it using standard POS-taggers and standard english dictionary, and finally, w 
+\iffalse
+\section{Existing Evaluation Approaches}
+
+\par Human quality text summarization systems are difficult to design and even more difficult to evaluate~\cite{Goldstein:1999:STD:312624.312665}. The extractive summarization task has been most recently portrayed as \emph{ranking sentences} based on their likelihood of being part of the summary and their salience. Different approaches are also being tried with the goal of making the ranking process more semantically meaningful.
+
+%\par Several studies (\cite{Salton:1997:ATS:256268.256282}, \cite{384}, \cite{Marcu97fromdiscourse}, \cite{DBLP:conf/acl/ManiM01}) suggest that \emph{multiple human gold-standard summaries would provide a better ground for comparison}. Lin~\cite{Lin:2004a} states that multiple references tend to increase evaluation stability although human judgements only refer to  single reference summary.
+%\par After considering the evaluation procedures of ROUGE~\cite{Lin04rouge:a}, Pyramid~\cite{DBLP:conf/naacl/NenkovaP04}, and their variants e.g., ParaEval~\cite{export:69253}, we present another approach to evaluating the performance of a summarization system which works with one or many reference summaries. 
+\fi
+\par Most of the existing evaluation approaches use absolute scales (e.g., precision, recall, f-measure) to evaluate the performance of the participating systems. \emph{Such measures can be used to compare summarization algorithms, but they do not indicate how significant the improvement of one summarizer over another is }~\cite{Goldstein:1999:STD:312624.312665}. ROUGE (Recall Oriented Understudy for Gisting Evaluation)~\cite{Lin04rouge:a} is one of the well known techniques to evaluate single/multi-document summaries. ROUGE is closely modelled after BLEU~\cite{Papineni:2002:BMA:1073083.1073135}, a package for machine translation evaluation. ROUGE includes measures to automatically determine the quality of a summary by comparing it to other (ideal) summaries created by humans. The measures count the number of overlapping units such as n-gram, word sequences, and word pairs between the machine-generated summary and the reference summaries. 
+
+\section{Relativize the Scale}
+While we compare a system generated output with a given reference, we control the \emph{length} of the output so that we get a fair scenario to be compared with. We, then, either find exact string/phrase/word matching techniques or have to employ manual labors for generating paraphrases in order to compare. We propose a modified approach of~\cite{DBLP:conf/ecir/HamidHT16} that not only can adjust to the length variation but also considers WordNet based \emph{IS-A} relationship to define the path similarity between words (synsets).
+\par We will be describing the baseline generation scenario briefly, and then explain how we relate the system generated abstractive/extractive approaches with the provided references.
+\subsection{A Sound Baseline for All}
+We consider each document (and generated summary/ key-phrases, given references, etc.) as a \emph{set} of words (or phrases). We are flexible towards the set sizes except for the fact that the size of system generated summary/key-phrases and provided references are shorter than the original document size. At first, in order to draw a base-case scenario, we assume that \emph{references and system outputs are complete subsets of the original document}. Considering these we can relate the baseline to equation~\ref{binomialLK}.
+\subsubsection*{Baseline}   
+\label{avgI}
+Given a set $N$ of size $n$, and two randomly selected subsets $K\subseteq N$ and $L \subseteq N$ with sizes $k$ and $l$ (say, $k \le l$), the average or expected size of the intersection ($|K \cap L|$) is 
+\begin{small}
+\begin{equation}
+avg(n,k,l)_{random} = {{\sum_{i=0}^k i \binom{k}{i}\binom{n-k}{l-i}} \over
+{\sum_{i=0}^k \binom{k}{i}\binom{n-k}{l-i}}}.
+\label{binomialLK}
+\end{equation}
+\end{small}
+For each possible size $i = \{0..k\}$ of an intersecting subset, the numerator sums the product of $i$ and the number of different possible subsets of size $i$, giving the total number of elements in all possible intersecting subsets. %For a particular size $i$ there are $\binom{k}{i}$ ways to select the $i$ intersecting elements from $K$, which leaves $n-k$ elements from which to choose the $l-i$ non-intersecting elements. 
+The denominator simply counts the number of possible subsets, so that the fraction itself gives the expected (average) number of elements between two randomly selected subsets.
+%\subsubsection*{Simplifying Equation~\ref{binomialLK}:}
+\par Eq. \ref{binomialLK} is expressed as a combinatorial construction, but the probabilistic one is perhaps simpler: the probability of any element $x$ being present in both subset $K$ and subset $L$ is the probability that $x$ is contained in the intersection of those two sets $I = L \cap K$.
+\begin{small}
+\begin{flalign} 
+\begin{split}
+\Pr(x \in K) \cdot  \Pr(x \in L) &= \Pr(x \in (L \cap K)) \\&= \Pr(x \in I)
+\end{split} 
+\label{dproof}
+\end{flalign}
+\end{small}
+Putting another way, the probability that an element $x$ is in $K$, $L$, or $I$ is $k/n$, $l/n$ and $i/n$ respectively (where $i$ is the number of elements in $I$). From eq.~\ref{dproof} we deduce,
+\begin{flalign}
+\begin{split}
+(k/n)  (l/n) &= i/n\\
+i &= \frac{k l}{ n}
+\end{split}
+\label{ikln}
+\end{flalign}
+
+\subsection{The Relativized Scale}
+A direct comparison of an observed overlap (say, $\omega$), seen as the intersection size of two sets $K$ and $L$, consisting of lexical units like unigrams or $n$-grams drawn from a single set $N$ is provided by the {\em i-measure}:
+%\vspace{-1 ex}
+\begin{equation}
+\begin{array}{l@{}l}
+i\hbox{-}measure(N,K,L)
+&{}=\frac{observed\_size\_of\_intersection}{expected\_size\_of\_intersection} \\\\
+&{}=  \frac{|K \cap L|}{\frac{|K| \cdot |L|}{|N|}} = \frac{\omega}{\left (\frac{ k l}{n}\right) }=\frac{\omega}{i}
+\end{array}
+\label{eq:imeasure}
+\end{equation}
+
+
+\subsection{Connect Relativized scale to Absolute Scale}
+\emph{Recall, Precision,} and \emph{f-measure} are the re-known absolute scales to define the performance of a system. Recall ($r$) is the ratio of \emph{number of relevant information received to the total number of relevant information in the system}. Precision ($p$), on the other hand, is the ratio of \emph{number of relevant records retrieved to the total number (relevant and irrelevant) of records retrieved}. Assuming the subset with size $k$ as the gold standard, we define recall, and precision for the randomly generated sets as:
+\[r=\frac{i}{k}  
+\quad\text{and}\quad  
+p=\frac{i}{l}
+\]
+\begin{flalign*}
+f\hbox{-}measure &= \frac{2pr}{p+r}%\frac{1}{\frac{\alpha}{p}+(1-\alpha)\frac{1}{r}}\\
+%f &= \frac{2pr}{p+r}, \alpha = 0.5
+\end{flalign*}
+%\end{multicols}
+$f\hbox{-}measure$ (the balanced harmonic mean of $p$ and $r$) for these two random sets can be redefined using eqn~\ref{ikln} as:
+\begin{equation}
+\begin{array}{l@{}l}
+f\hbox{-}measure_{expected}
+    &{}=i/((l+k)/2)
+\end{array}
+\label{fmRandom}
+\end{equation}
+%\subsection{Defining $f\hbox{-}measure_{observed}$, with observed size of intersection `$\omega$'}
+Let, for a machine generated summary $L$ and a reference summary $K$, the observed size of intersection, $|K \cap L|$ is $\omega$.
+%\vspace{-1cm}
+%\begin{small}
+ %\begin{multicols}{2}
+%\begin{flalign*}
+\[
+r =  \frac{|K \cap L|}{|K|} = \frac{\omega}{k}
+\quad\text{and}\quad
+p =  \frac{|K \cap L|}{|L|} = \frac{\omega}{l}
+\]
+%\end{multicols}
+%\end{small}
+$f\hbox{-}measure$, in this case, can be defined as,
+\begin{equation}
+\begin{array}{l@{}l}
+f\hbox{-}measure_{observed}
+    %&{} = 2 p r/(p+r)\\
+    %&{}= \frac{2 \cdot \omega^2}{k \cdot l } /\frac{(k+l)\cdot \omega}{k \cdot l}\\
+    %&{}= 2 \omega / (k + l)\\
+    &{}=\omega / ((k + l)/2)\\
+\end{array}
+\label{fm}
+\end{equation}
+By substituting $\omega$ and $i$ using eq.\ref{fm} and \ref{fmRandom}, we get,
+\begin{equation}
+i\hbox{-}measure(N,K,L) = \frac{f\hbox{-}measure_{observed}}{f\hbox{-}measure_{expected}}
+\end{equation}
+Interestingly, $i\hbox{-}measure$ turned out as a ratio between the observed $f\hbox{-}measure$ and the expected/ average $f\hbox{-}measure$. In other words, \emph{the $i\hbox{-}measure$ is a form of $f\hbox{-}measure$ with some tolerance towards the length of the summaries/words}.
+
+\section{From Abstractive to Extractive}
+After exploring the existing automatic summarization and keyphrase extraction algorithms, we have discovered that majority of the works focus on \emph{extractive} methods. 
+Most of the reference sets, on the contrary, are abstractive by nature. When a human is appointed to produce a summary (or write a set of representative phrases), he improvises the sentences/phrases as much as he can. Hence, \emph{our hypothesis, $K \subseteq N$ is not always true}. 
+\par In this circumstances, we can deviate from the exact string/ phrase matching approach to a \emph{fuzzy/weighted} approach. \emph{Our motive is to relate the basic units (words, in this case) found in the system generated outputs to the units from the reference set}. To satisfy our goal, we need a large ontology, or thesaurus. We, in this work, use WordNet to find hypernym path similarity for evaluation.
+\par %WordNet~\cite{Miller1990} groups words into sets of synonyms called synsets, provides short definitions and usage examples, and records a number of relations among these synonym sets or their members. 
+WordNet can be seen as a combination of dictionary and thesaurus. Both nouns and verbs are organized into hierarchies, defined by hypernym or \emph{IS-A} relationships. The words at the same level represent synset members. Each set of synonyms has a unique index. We have used the \emph{path similarity} between two word-senses while relating one with the other. While evaluating summaries, we apply a \emph{POS-tagger} to fine-tune the synsets. While evaluating keyphrases, we considered each word as $noun$, and find the path similarity using the \emph{first sense} between two words.
+\subsection{Scoring Approach}
+For the scientific article set, we have the diamond standard and we use the TextRank as a test system. For each paper, the TextRank algorithm generates a summary and a set of keywords. The TextRank graph builds a directed edge between the words due to their co-occurrence within a window range and/or the synset based similarity measure determined by WordNet synset relations. 
+\par After generating keyphrases and summaries, we use a modified version of eq.~\ref{eq:imeasure} to score the system. We adapted the WordNet \emph{hypernym tree} to detect \emph{path similarity} between two synsets of the system output and the diamond standard. The similarity score ranges from $0$ to $1$. Then eq.~\ref{score} is used to find the score. 
+\begin{equation}
+\begin{split}
+score(L) = i\hbox{-}measure(N,K,L) \times \\
+                 \sum_{w_l \in L} max \{path\_similarity(w_l, w_k), \forall w_k \in K\}
+\end{split}
+\label{score}
+\end{equation}
+The evaluation code published with this paper considers only one reference (the diamond standard) per document. But it can be easily tuned to handle multiple references using similar approaches as ROUGE or Credibility-based Scoring~\cite{DBLP:conf/ecir/HamidHT16}.
+\section{Building the Dataset}
+We have collected data (papers) from several proceedings of WWW and KDD. We avoided posters as their internal structure is even complex and contains more figure than texts. Our dataset is composed with a total of 2000 articles. We prepare the dataset in the following structure: 
+\begin{itemize}[noitemsep, nolistsep]
+\item There are k folders. Each folder contains the following files: 
+
+\begin{itemize}[noitemsep, nolistsep]
+\item original paper in pdf format, 
+\item paper in text format,  
+\item title of the paper,
+\item author-written abstract (diamond summary),
+\item author provided keyphrases (diamond keyphrases),
+\item body of the paper excluding references, and section headers (dataset)
+\item textrank generated summary 
+\item textrank generated keyphrases 
+\item evaluation statistics (precision, recall, f-measure, i-measure)
+\end{itemize}
+\end{itemize}
+
+\bibliographystyle{abbrv}
+\bibliography{sigproc}  % sigproc.bib is the name of the Bibliography in this case
+\end{document}

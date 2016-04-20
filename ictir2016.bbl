@@ -1,0 +1,59 @@
+\begin{thebibliography}{1}
+
+\bibitem{Goldstein:1999:STD:312624.312665}
+J.~Goldstein, M.~Kantrowitz, V.~Mittal, and J.~Carbonell.
+\newblock Summarizing text documents: Sentence selection and evaluation
+  metrics.
+\newblock In {\em Proceedings of the 22Nd Annual International ACM SIGIR
+  Conference on Research and Development in Information Retrieval}, SIGIR '99,
+  pages 121--128, New York, NY, USA, 1999. ACM.
+
+\bibitem{DBLP:conf/ecir/HamidHT16}
+F.~Hamid, D.~Haraburda, and P.~Tarau.
+\newblock Evaluating text summarization systems with a fair baseline from
+  multiple reference summaries.
+\newblock In {\em Advances in Information Retrieval - 38th European Conference
+  on {IR} Research, {ECIR} 2016, Padua, Italy, March 20-23, 2016. Proceedings},
+  pages 351--365, 2016.
+
+\bibitem{Lin04rouge:a}
+C.-Y. Lin.
+\newblock Rouge: a package for automatic evaluation of summaries.
+\newblock pages 25--26, 2004.
+
+\bibitem{Lin:2003:AES:1073445.1073465}
+C.-Y. Lin and E.~Hovy.
+\newblock Automatic evaluation of summaries using n-gram co-occurrence
+  statistics.
+\newblock In {\em Proceedings of the 2003 Conference of the North American
+  Chapter of the Association for Computational Linguistics on Human Language
+  Technology - Volume 1}, NAACL '03, pages 71--78, Stroudsburg, PA, USA, 2003.
+  Association for Computational Linguistics.
+
+\bibitem{Mihalcea04TextRank}
+R.~Mihalcea and P.~Tarau.
+\newblock {TextRank}: Bringing order into texts.
+\newblock In {\em Proceedings of {EMNLP-04}and the 2004 Conference on Empirical
+  Methods in Natural Language Processing}, July 2004.
+
+\bibitem{Nguyen:2007}
+T.~D. Nguyen and M.-Y. Kan.
+\newblock Key phrase extraction in scientific publications.
+\newblock In {\em Proceeding of International Conference on Asian Digital
+  Libraries}, pages 317--326, 2007.
+
+\bibitem{Papineni:2002:BMA:1073083.1073135}
+K.~Papineni, S.~Roukos, T.~Ward, and W.-J. Zhu.
+\newblock Bleu: A method for automatic evaluation of machine translation.
+\newblock In {\em Proceedings of the 40th Annual Meeting on Association for
+  Computational Linguistics}, ACL '02, pages 311--318, Stroudsburg, PA, USA,
+  2002. Association for Computational Linguistics.
+
+\bibitem{H01-1056}
+D.~Radev, S.~Blair-Goldensohn, Z.~Zhang, and R.~Raghavan.
+\newblock Newsinessence: A system for domain-independent, real-time news
+  clustering and multi-document summarization.
+\newblock In {\em Proceedings of the First International Conference on Human
+  Language Technology Research}, 2001.
+
+\end{thebibliography}
